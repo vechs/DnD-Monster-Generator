@@ -85,8 +85,8 @@ namespace DND_Monster
 
         public static string RedditOutput()
         {
-            RedditMonster = "";
-            RedditMonster += Bold(CreatureName.Replace('*', ' ').Trim());
+            RedditMonster = HR();
+            RedditMonster += ">## " + CreatureName.Replace('*', ' ').Trim());
             RedditMonster += Italic(CreatureSize + " " + CreatureType.ToLower() + ", " + CreatureAlign.ToLower());
             RedditMonster += HR();
             RedditMonster += Bold("Armor Class", AC);
@@ -163,7 +163,7 @@ namespace DND_Monster
                                 abilityDescription += abilityWord.Replace('\n'.ToString(), breakString) + " ";
                             }
                         }
-                        RedditMonster += Bold(ability.ProperName() + ".", abilityDescription);
+                        RedditMonster += BoldItalic(ability.ProperName() + ".", abilityDescription);
                     }
                     #endregion
 
@@ -171,7 +171,7 @@ namespace DND_Monster
                     #region
                     if (ability.isSpell)
                     {
-                        RedditMonster += Bold("Spellcasting.", ability.TextSpellcasterBoilerplate(CreatureName));
+                        RedditMonster += BoldItalic("Spellcasting.", ability.TextSpellcasterBoilerplate(CreatureName));
                         if (ability.Description.Contains("NotInnate"))
                         {
                             RedditMonster += ability.TextSpellBlockFormat_NotInnate();
@@ -183,41 +183,37 @@ namespace DND_Monster
                     }
                     #endregion
                 }
-                RedditMonster += HR();
             }
 
             if (_Actions.Count > 0)
             {
-                RedditMonster += Bold("--Actions--");
+                RedditMonster += "### Actions";
                 foreach (Ability action in _Actions)
                 {
                     if (!action.isDamage)
                     {
-                        RedditMonster += Bold(action.ProperName() + ".", action.Description);
+                        RedditMonster += BoldItalic(action.ProperName() + ".", action.Description);
                     }
                     else
                     {
-                        RedditMonster += Bold(action.ProperName() + ".", action.attack.TextDescribe());
+                        RedditMonster += BoldItalic(action.ProperName() + ".", action.attack.TextDescribe());
                     }
                 }
-                RedditMonster += HR();
             }
 
             if (_Reactions.Count > 0)
             {
-                RedditMonster += Bold("--Reactions--");
+                RedditMonster += BoldItalic("### Reactions");
 
                 foreach (Ability reaction in _Reactions)
                 {
-                    RedditMonster += Bold(reaction.ProperName() + ".", reaction.Description);
+                    RedditMonster += BoldItalic(reaction.ProperName() + ".", reaction.Description);
                 }
-
-                RedditMonster += HR();
             }
 
             if (_Legendaries.Count > 0)
             {
-                RedditMonster += Bold("--Legendary Action--");
+                RedditMonster += Bold("### Legendary Actions");
 
                 foreach (Legendary legendary in _Legendaries)
                 {
@@ -316,7 +312,7 @@ namespace DND_Monster
                                 abilityDescription += abilityWord.Replace('\n'.ToString(), breakString) + " ";
                             }
                         }
-                        RedditMonster += Bold(ability.ProperName() + ".", abilityDescription);
+                        RedditMonster += BoldItalic(ability.ProperName() + ".", abilityDescription);
                     }
                     #endregion
 
@@ -324,7 +320,7 @@ namespace DND_Monster
                     #region
                     if (ability.isSpell)
                     {
-                        RedditMonster += Bold("Spellcasting.", ability.TextSpellcasterBoilerplate(CreatureName));
+                        RedditMonster += BoldItalic("Spellcasting.", ability.TextSpellcasterBoilerplate(CreatureName));
                         if (ability.Description.Contains("NotInnate"))
                         {
                             RedditMonster += ability.TextSpellBlockFormat_NotInnate();
@@ -341,16 +337,16 @@ namespace DND_Monster
 
             if (_Actions.Count > 0)
             {
-                RedditMonster += Bold("--Actions--");
+                RedditMonster += ">### Actions";
                 foreach (Ability action in _Actions)
                 {
                     if (!action.isDamage)
                     {
-                        RedditMonster += Bold(action.ProperName() + ".", action.Description);
+                        RedditMonster += BoldItalic(action.ProperName() + ".", action.Description);
                     }
                     else
                     {
-                        RedditMonster += Bold(action.ProperName() + ".", action.attack.TextDescribe());
+                        RedditMonster += BoldItalic(action.ProperName() + ".", action.attack.TextDescribe());
                     }
                 }
                 RedditMonster += HR();
@@ -358,11 +354,11 @@ namespace DND_Monster
 
             if (_Reactions.Count > 0)
             {
-                RedditMonster += Bold("--Reactions--");
+                RedditMonster += ">### Reactions";
 
                 foreach (Ability reaction in _Reactions)
                 {
-                    RedditMonster += Bold(reaction.ProperName() + ".", reaction.Description);
+                    RedditMonster += BoldItalic(reaction.ProperName() + ".", reaction.Description);
                 }
 
                 RedditMonster += HR();
@@ -370,7 +366,7 @@ namespace DND_Monster
 
             if (_Legendaries.Count > 0)
             {
-                RedditMonster += Bold("--Legendary Action--");
+                RedditMonster += ">### Legendary Action";
 
                 foreach (Legendary legendary in _Legendaries)
                 {
@@ -391,43 +387,43 @@ namespace DND_Monster
 
         public static string Bold(string input)
         {
-            return "**" + input + "** " + "  " + Environment.NewLine;
+            return ">**" + input + "** " + "  " + Environment.NewLine;
         }
 
         public static string Bold(string input, string nonBold)
         {
-            return "**" + input + "** " + nonBold + "  " + Environment.NewLine;
+            return ">**" + input + "** " + nonBold + "  " + Environment.NewLine;
         }
 
         public static string Italic(string input)
         {
-            return "*" + input + "* " + "  " + Environment.NewLine;
+            return ">*" + input + "* " + "  " + Environment.NewLine;
         }
 
         public static string Italic(string input, string nonItalic)
         {
-            return "*" + input + "* " + nonItalic + "  " + Environment.NewLine;
+            return ">*" + input + "* " + nonItalic + "  " + Environment.NewLine;
         }
 
         public static string BoldItalic(string input)
         {
-            return "***" + input + "*** " + "  " + Environment.NewLine;
+            return ">***" + input + "*** " + "  " + Environment.NewLine;
         }
 
         public static string BoldItalic(string input, string nonBoldItalic)
         {
-            return "***" + input + "*** " + nonBoldItalic + "  " + Environment.NewLine;
+            return ">***" + input + "*** " + nonBoldItalic + "  " + Environment.NewLine;
         }
 
 
         public static string Regular(string input)
         {
-            return input + "  " + Environment.NewLine;
+            return ">" + input + "  " + Environment.NewLine;
         }
 
         public static string NonSpace(string input)
         {
-            return input + Environment.NewLine;
+            return ">" + input + Environment.NewLine;
         }
 
         public static string HR()
